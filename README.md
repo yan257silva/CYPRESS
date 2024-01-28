@@ -1,0 +1,1 @@
+Automation of functional (e2e), Rest API (backend) and graphical interface (frontend) tests with just one tool
