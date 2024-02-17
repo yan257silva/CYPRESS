@@ -54,5 +54,7 @@ describe ('Esperas...', () => {
         cy.get('#lista li span').then($el => {
             expect($el).to.have.length(1)
         })
+        // O should fica sendo executado a todo momento do teste
+        // O Then aguarda o get ser executado, ai sim é executado
     })
 })

@@ -69,13 +69,40 @@ describe('Work with basic elements', () => {
             .select('2o grau completo')
             .should('have.value', '2graucomp')
 
-        //TO DO Validar as opções do combo
+        cy.get('[data-test="dataEscolaridade"]')
+            .select('1o grau completo')
+            .should('have.value', '1graucomp')
+
+        // para verificar a quantidade de itens dentro do combo box
+        cy.get('[data-test="dataEscolaridade"] option')
+            .should('have.length', 8)
+        // -----------------------------------------------------------------------------------------
+        // verificar quais itens existem dentro do combo box, mas usando array e função
+        cy.get('[data-test="dataEscolaridade"] option')
+            .then($arr => {
+                const values = []
+                $arr.each(function() {
+                    values.push(this.innerHTML)
+                })
+                expect(values).to.include.members(['Superior', 'Mestrado'])
+            })
     })
 
     it.only('Combo Multiplo', () => {
         cy.get('[data-testid=dataEsportes]')
             .select(['natacao', 'Corrida', 'nada'])
 
-    //TO DO validar opções de combo multiplo
+        cy.get('[data-testid=dataEsportes]').then($el => {
+            // ver quais itens existem dentro do combo multiplo
+            expect($el.val()).to.be.deep.equal(['natacao', 'Corrida', 'nada'])
+            // colocar a quantidade de itens que exitem dentro deste combo multiplo
+            expect($el.val()).to.have.length(3)
+        })
+
+        // outro jeito de fazer essa verificação
+        cy.get('[data-testid=dataEsportes]')
+            .invoke('val')
+            .should('eql', ['natacao', 'Corrida', 'nada'])
+
     })
 })
